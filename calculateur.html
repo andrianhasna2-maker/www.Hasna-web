@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur de ration alimentaire</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex items-center justify-center p-8">
+
+  <section class="max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-6 text-center">Calculateur de ration alimentaire</h2>
+
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+
+      <label class="block text-gray-700 font-semibold mb-2">Poids de l'animal (kg)</label>
+      <input type="number" id="poids" class="w-full border border-gray-300 rounded p-2 mb-4" placeholder="Ex: 400">
+
+      <label class="block text-gray-700 font-semibold mb-2">Objectif</label>
+      <select id="objectif" class="w-full border border-gray-300 rounded p-2 mb-4">
+        <option value="0.02">Entretien</option>
+        <option value="0.025">Croissance</option>
+        <option value="0.03">Production de lait</option>
+      </select>
+
+      <button onclick="calculerRation()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition">
+        Calculer
+      </button>
+
+      <p id="resultat" class="text-center text-lg font-bold text-gray-800 mt-4"></p>
+
+      <a href="portfolio-tailwind.html" class="block text-center text-blue-500 hover:text-blue-700 font-semibold mt-6">← Retour au portfolio</a>
+
+    </div>
+  </section>
+
+  <script>
+    function calculerRation() {
+      const poids = parseFloat(document.getElementById('poids').value);
+      const pourcentage = parseFloat(document.getElementById('objectif').value);
+      const resultatElement = document.getElementById('resultat');
+
+      if (isNaN(poids) || poids <= 0) {
+        resultatElement.textContent = "Merci d'entrer un poids valide.";
+        resultatElement.classList.add('text-red-500');
+        return;
+      }
+
+      const ration = poids * pourcentage;
+      resultatElement.classList.remove('text-red-500');
+      resultatElement.textContent = `Ration recommandée : ${ration.toFixed(2)} kg / jour`;
+    }
+  </script>
+
+</body>
+</html>
